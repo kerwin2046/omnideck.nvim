@@ -38,7 +38,7 @@ Opinionated, modern defaults across the stack:
 - **Shell** — Zsh + [Starship](https://starship.rs/) + [Atuin](https://atuin.sh/) + [Zoxide](https://github.com/ajeetdsouza/zoxide).
 - **Modern CLI** — `eza`, `bat`, `fd`, `ripgrep`, `fzf`, `delta`, `dust`, `duf`, `procs`, `tldr`, `jq`, `yq`, `htop`, `btop`.
 - **Git** — `lazygit`, `gh`, `delta` diffing, sane global gitignore, `includeIf` for personal vs work identity.
-- **Runtimes** — [mise](https://mise.jdx.dev/) manages Node / Python / Go / Rust versions per project.
+- **Runtimes** — [mise](https://mise.jdx.dev/) is installed; you pick which language runtimes to add at `chezmoi init` (node / python / go / rust / deno / bun) — default is none, opt in only what you need.
 - **Containers** — Docker + `lazydocker` (optional, prompted at install).
 - **GUI (macOS)** — Raycast, Rectangle, VS Code, Stats (optional, prompted at install).
 - **System defaults** — sensible macOS `defaults write` tweaks; opt-in GNOME / KDE settings on Linux.
@@ -77,6 +77,7 @@ The first `chezmoi init` writes a config at `~/.config/chezmoi/chezmoi.toml` fro
 - **name** / **email** — feeds your global git config.
 - **machine_kind** — `personal` or `work`. Used to switch git `includeIf` blocks and to gate work-only tools.
 - **install_gui** / **install_docker** — toggle the heavier categories.
+- **runtimes** — multi-select of language runtimes mise should preinstall (node / python / go / rust / deno / bun). Defaults to none; pick what matches your day-to-day work.
 
 Re-run `chezmoi init` (without `--apply`) to change these answers later.
 

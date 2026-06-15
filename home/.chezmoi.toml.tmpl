@@ -5,6 +5,7 @@
 {{- $hostName    := promptStringOnce . "host_name"    "Host nickname (e.g. cyberdeck)" .chezmoi.hostname -}}
 {{- $installGui  := promptBoolOnce   . "install_gui"  "Install GUI applications?"  true -}}
 {{- $installDocker := promptBoolOnce . "install_docker" "Install Docker / container tooling?" true -}}
+{{- $runtimes    := promptMultichoiceOnce . "runtimes" "Language runtimes mise should manage (space to toggle)" (list "node" "python" "go" "rust" "deno" "bun") (list) -}}
 
 [data]
     name           = {{ $name | quote }}
@@ -13,6 +14,7 @@
     host_name      = {{ $hostName | quote }}
     install_gui    = {{ $installGui }}
     install_docker = {{ $installDocker }}
+    runtimes       = [{{ range $i, $r := $runtimes }}{{ if $i }}, {{ end }}{{ $r | quote }}{{ end }}]
 
 [diff]
     pager = "delta"

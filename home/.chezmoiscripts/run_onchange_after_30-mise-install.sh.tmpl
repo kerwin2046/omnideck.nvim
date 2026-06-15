@@ -10,9 +10,15 @@ if ! command -v mise >/dev/null 2>&1; then
   exit 0
 fi
 
-# Tools change marker: re-run when the rendered list below changes.
-# {{ include "dot_config/mise/config.toml" | sha256sum }}
+# Re-run trigger: any change to the chosen runtimes mutates this hash, which
+# in turn changes the rendered script's content, which makes chezmoi re-run us.
+# runtimes: {{ .runtimes | sortAlpha | join "," }}
 
-log "mise install (global tools)"
+{{ if not .runtimes -}}
+log "no runtimes selected at chezmoi init — skipping mise install"
+log "to add runtimes later: edit ~/.config/chezmoi/chezmoi.toml or run 'mise use -g <runtime>@<version>'"
+{{- else -}}
+log "mise install (global tools): {{ .runtimes | sortAlpha | join ", " }}"
 mise install --quiet || warn "some tools failed; run \`mise doctor\` to investigate"
 mise reshim
+{{- end }}

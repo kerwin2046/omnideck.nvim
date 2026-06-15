@@ -24,6 +24,7 @@ cat > "$WORK/cfg-linux.toml" <<'EOF'
     host_name      = "ci-runner"
     install_gui    = true
     install_docker = true
+    runtimes       = ["node", "python", "go", "rust", "deno", "bun"]
 EOF
 
 cat > "$WORK/cfg-darwin.toml" <<'EOF'
@@ -34,6 +35,7 @@ cat > "$WORK/cfg-darwin.toml" <<'EOF'
     host_name      = "ci-runner"
     install_gui    = true
     install_docker = true
+    runtimes       = ["node", "python", "go", "rust", "deno", "bun"]
 
 [data.chezmoi]
     os = "darwin"
@@ -54,6 +56,7 @@ while IFS= read -r tmpl; do
       --promptString host_name="ci-runner" \
       --promptBool install_gui="true" \
       --promptBool install_docker="true" \
+      --promptMultichoice runtimes="node,python" \
       < "$tmpl" >/dev/null 2>"$WORK/err"; then
       echo "  RENDER FAIL (init) $rel"
       sed 's/^/    /' "$WORK/err"

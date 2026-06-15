@@ -1,0 +1,31 @@
+{{- /* Renders only the runtimes the user explicitly selected at chezmoi init.
+       Per-project overrides still live in `.mise.toml` at the repo root. */ -}}
+# ~/.config/mise/config.toml — managed by chezmoi.
+
+[settings]
+experimental = true
+status.show_tools = true
+status.show_env = false
+
+[tools]
+{{- range $rt := .runtimes }}
+{{-   if eq $rt "node"   }}
+node    = "lts"
+{{-   else if eq $rt "python" }}
+python  = "3.13"
+{{-   else if eq $rt "go" }}
+go      = "1.23"
+{{-   else if eq $rt "rust" }}
+rust    = "stable"
+{{-   else if eq $rt "deno" }}
+deno    = "latest"
+{{-   else if eq $rt "bun"  }}
+bun     = "latest"
+{{-   end }}
+{{- end }}
+
+[env]
+PYTHONDONTWRITEBYTECODE = "1"
+PIP_REQUIRE_VIRTUALENV  = "true"
+NPM_CONFIG_FUND         = "false"
+CARGO_NET_GIT_FETCH_WITH_CLI = "true"
